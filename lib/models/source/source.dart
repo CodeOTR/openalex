@@ -6,6 +6,8 @@ import 'package:openalex/models/source/apc_price.dart';
 import 'package:openalex/models/source/society.dart';
 import 'package:openalex/models/work/alex_ids.dart';
 
+part 'source.g.dart';
+
 @JsonSerializable(explicitToJson: true)
 class Source {
 
@@ -82,6 +84,39 @@ class Source {
 
   @JsonKey(name: 'x_concepts')
   List<DehydratedConcept>? xConcepts;
+
+  Source({
+    this.abbreviatedTitle,
+    this.alternateTitles,
+    this.apcPrices,
+    this.apcUsd,
+    this.citedByCount,
+    this.countryCode,
+    this.countsByYear,
+    this.createdDate,
+    this.displayName,
+    this.homepageUrl,
+    this.hostOrganization,
+    this.hostOrganizationLineage,
+    this.hostOrganizationName,
+    this.id,
+    this.ids,
+    this.isInDoaj,
+    this.isOa,
+    this.issn,
+    this.issnL,
+    this.societies,
+    this.summaryStats,
+    this.type,
+    this.updatedDate,
+    this.worksApiUrl,
+    this.worksCount,
+    this.xConcepts,
+  });
+
+  factory Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SourceToJson(this);
 }
 
 //* Source object

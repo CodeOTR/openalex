@@ -7,6 +7,20 @@ import 'package:openalex/models/author/meta_authors.dart';
 import 'package:openalex/models/models.dart';
 
 class OpenAlex {
+
+  static final OpenAlex _openAlex = OpenAlex._internal();
+
+  factory OpenAlex() => _openAlex;
+
+  OpenAlex._internal();
+
+  String? email;
+
+  // set email
+  void setEmail(String email) {
+    this.email = email;
+  }
+
   final String _url = 'https://openalex.org';
 
   /// https://docs.openalex.org/api-entities/works/get-a-single-work
@@ -46,11 +60,11 @@ class OpenAlex {
     WorkFilter? queryFilter,
   }) async {
     String queryString = '';
-  if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
       queryString += '?';
       if (queryFilter != null && query != null) {
         queryString += 'filter=${queryFilter.name}.search:$query&';
-      } else if(query != null) {
+      } else if (query != null) {
         queryString += 'search=$query&';
       }
 
@@ -169,13 +183,87 @@ class OpenAlex {
     }
   }
 
-  Future<MetaConcepts> getConcepts() async {
-    http.Response response = await http.get(Uri.parse('$_url/concepts'));
+  Future<MetaConcepts> getConcepts({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, ConceptFilter? queryFilter}) async {
+    String queryString = '';
+    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+      queryString += '?';
+      if (queryFilter != null && query != null) {
+        queryString += 'filter=${queryFilter.name}.search:$query&';
+      } else if (query != null) {
+        queryString += 'search=$query&';
+      }
+
+      if (query != null) queryString += 'q=$query&';
+      if (page != null) queryString += 'page=$page&';
+      if (perPage != null) queryString += 'per-page=$perPage&';
+      if (select != null) queryString += 'select=${select.join(',')}&';
+    }
+    http.Response response = await http.get(Uri.parse('$_url/concepts$queryString'));
 
     if (response.statusCode == 200) {
       return MetaConcepts.fromJson(jsonDecode(response.body));
     } else {
       return MetaConcepts();
+    }
+  }
+
+  Future<Institution?> getInstitution(String id, {List<String>? select}) async {
+    String queryString = '';
+
+    if (select != null) {
+      queryString += '?';
+      queryString += 'select=${select.join(',')}';
+    }
+    http.Response response = await http.get(Uri.parse('$_url/institutions/$id$queryString'));
+
+    if (response.statusCode == 200) {
+      return Institution.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
+  }
+
+  Future<MetaInstitutions?> getInstitutions({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, InstitutionFilter? queryFilter}) async {
+    String queryString = '';
+    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+      queryString += '?';
+      if (queryFilter != null && query != null) {
+        queryString += 'filter=${queryFilter.name}.search:$query&';
+      } else if (query != null) {
+        queryString += 'search=$query&';
+      }
+
+      if (query != null) queryString += 'q=$query&';
+      if (page != null) queryString += 'page=$page&';
+      if (perPage != null) queryString += 'per-page=$perPage&';
+      if (select != null) queryString += 'select=${select.join(',')}&';
+    }
+    http.Response response = await http.get(Uri.parse('$_url/institutions$queryString'));
+
+    if (response.statusCode == 200) {
+      return MetaInstitutions.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
+  }
+
+  Future<Source?> getSource(String id) async {
+    http.Response response = await http.get(Uri.parse('$_url/sources/$id'));
+
+    if (response.statusCode == 200) {
+      return Source.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
+  }
+
+  Future<MetaSources?> getSources() async {
+    http.Response response = await http.get(Uri.parse('$_url/sources'));
+
+    if (response.statusCode == 200) {
+      return MetaSources.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
     }
   }
 }
@@ -188,6 +276,49 @@ enum WorkFilter {
   defaultFilter('default');
 
   const WorkFilter(this.name);
+
+  final String name;
+}
+
+enum ConceptFilter {
+  ancestorsId('ancestors.id'),
+  citedByCount('cited_by_count'),
+  idsOpenalex('ids.openalex'),
+  level('level'),
+  summaryStats2yrMeanCitedness('summary_stats.2yr_mean_citedness'),
+  summaryStatsHIndex('summary_stats.h_index'),
+  summaryStatsI10Index('summary_stats.i10_index'),
+  worksCount('works_count'),
+  defaultFilter('default.search'),
+  displayName('display_name.search'),
+  hasWixidata('has_wikidata');
+
+  const ConceptFilter(this.name);
+
+  final String name;
+}
+
+enum InstitutionFilter {
+  citedByCount('cited_by_count'),
+  countryCode('country_code'),
+  openalex('openalex'),
+  repositoriesHostOrganization('repositories.host_organization'),
+  repositoriesHostOrganizationLineage('repositories.host_organization_lineage'),
+  repositoriesId('repositories.id'),
+  ror('ror'),
+  summaryStats2yrMeanCitedness('summary_stats.2yr_mean_citedness'),
+  summaryStatsHIndex('summary_stats.h_index'),
+  summaryStatsI10Index('summary_stats.i10_index'),
+  type('type'),
+  worksCount('works_count'),
+  xConceptsId('x_concepts.id'),
+  defaultFilter('default.search'),
+  displayName('display_name.search'),
+  hasRor('has_ror'),
+  continent('continent'),
+  isGlobalSouth('is_global_south');
+
+  const InstitutionFilter(this.name);
 
   final String name;
 }
