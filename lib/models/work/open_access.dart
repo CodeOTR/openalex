@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'open_access.g.dart';
+
 @JsonSerializable(explicitToJson: true)
 class OpenAccess {
   /// True if any of this work's locations has location.is_oa=true and location.source.type=repository.
@@ -22,4 +24,14 @@ class OpenAccess {
   /// This URL might be a direct link to a PDF, or it might be to a landing page that links to the free PDF
   @JsonKey(name: 'oa_url')
   String? oaUrl;
+
+  OpenAccess({
+    this.anyRepositoryHasFulltext,
+    this.oaStatus,
+    this.oaUrl,
+  });
+
+  factory OpenAccess.fromJson(Map<String, dynamic> json) => _$OpenAccessFromJson(json);
+
+  Map<String, dynamic> toJson() => _$OpenAccessToJson(this);
 }

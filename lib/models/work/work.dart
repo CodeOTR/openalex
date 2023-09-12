@@ -14,6 +14,9 @@ import 'package:openalex/models/work/sustainable_goal.dart';
 
 import 'biblio.dart';
 
+part 'work.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Work {
 
   /// The abstract of the work, as an inverted index, which encodes information about the abstract's words and
@@ -250,4 +253,55 @@ class Work {
   /// You can read about their data extraction process on the Internet Archive website. If you compare term_frequency against articles we would like to hear how it went!
   @JsonKey(name: 'term_frequency')
   double? termFrequency;
+
+  Work({
+    this.abstractInvertedIndex,
+    this.authorships,
+    this.apcList,
+    this.apcPaid,
+    this.bestOALocation,
+    this.biblio,
+    this.citedByApiUrl,
+    this.citedByCount,
+    this.concepts,
+    this.correspondingAuthorIds,
+    this.correspondingInstitutionIds,
+    this.countriesDistinctCount,
+    this.countsByYear,
+    this.createdDate,
+    this.displayName,
+    this.doi,
+    this.grants,
+    this.id,
+    this.ids,
+    this.institutionsDistinctCount,
+    this.isOA,
+    this.isParatext,
+    this.isRetracted,
+    this.language,
+    this.license,
+    this.locations,
+    this.locationsCount,
+    this.mesh,
+    this.ngramsUrl,
+    this.openAccess,
+    this.primaryLocation,
+    this.publicationDate,
+    this.publicationYear,
+    this.referencedWorks,
+    this.relatedWorks,
+    this.sustainableDevelopmentGoals,
+    this.title,
+    this.type,
+    this.typeCrossref,
+    this.updatedDate,
+    this.ngram,
+    this.ngramCount,
+    this.ngramTokens,
+    this.termFrequency,
+  });
+
+  factory Work.fromJson(Map<String, dynamic> json) => _$WorkFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WorkToJson(this);
 }

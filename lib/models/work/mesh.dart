@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+part 'mesh.g.dart';
+
 @JsonSerializable(explicitToJson: true)
 class MeSH {
   /// The MeSH descriptor ID for this MeSH term.
@@ -21,4 +23,16 @@ class MeSH {
   /// If this MeSH term is a major topic for the work, this field will be true; otherwise it will be false.
   @JsonKey(name: 'is_major_topic')
   String? isMajorTopic;
+
+  MeSH({
+    this.descriptorUi,
+    this.descriptorName,
+    this.qualifierName,
+    this.qualifierUi,
+    this.isMajorTopic,
+  });
+
+  factory MeSH.fromJson(Map<String, dynamic> json) => _$MeSHFromJson(json);
+
+  Map<String, dynamic> toJson() => _$MeSHToJson(this);
 }
