@@ -11,7 +11,7 @@ MetaInstitutions _$MetaInstitutionsFromJson(Map<String, dynamic> json) =>
       meta: json['meta'] == null
           ? null
           : Meta.fromJson(json['meta'] as Map<String, dynamic>),
-      institutions: (json['institutions'] as List<dynamic>?)
+      institutions: (json['results'] as List<dynamic>?)
           ?.map((e) => Institution.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -19,5 +19,5 @@ MetaInstitutions _$MetaInstitutionsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MetaInstitutionsToJson(MetaInstitutions instance) =>
     <String, dynamic>{
       'meta': instance.meta?.toJson(),
-      'institutions': instance.institutions?.map((e) => e.toJson()).toList(),
+      'results': instance.institutions?.map((e) => e.toJson()).toList(),
     };

@@ -2,6 +2,7 @@ library openalex;
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openalex/models/author/meta_authors.dart';
 import 'package:openalex/models/models.dart';
@@ -21,7 +22,7 @@ class OpenAlex {
     this.email = email;
   }
 
-  final String _url = 'https://openalex.org';
+  final String _url = 'https://api.openalex.org';
 
   /// https://docs.openalex.org/api-entities/works/get-a-single-work
   Future<Work?> getWork(String id, {List<String>? select, EntitySort? sort, bool ascending = true}) async {
@@ -223,6 +224,7 @@ class OpenAlex {
     }
   }
 
+  /// get lists of institutions
   Future<MetaInstitutions?> getInstitutions({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, InstitutionFilter? queryFilter}) async {
     String queryString = '';
     if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
@@ -240,8 +242,15 @@ class OpenAlex {
     }
     http.Response response = await http.get(Uri.parse('$_url/institutions$queryString'));
 
+    debugPrint('Response: ${response.body}');
+
     if (response.statusCode == 200) {
-      return MetaInstitutions.fromJson(jsonDecode(response.body));
+      try{
+        return MetaInstitutions.fromJson(jsonDecode(response.body));
+      } catch (e) {
+        debugPrint('Error: $e');
+        return null;
+      }
     } else {
       return null;
     }

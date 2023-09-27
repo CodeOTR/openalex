@@ -8,6 +8,7 @@ part 'meta_institutions.g.dart';
 class MetaInstitutions {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Institution>? institutions;
 
   MetaInstitutions({
