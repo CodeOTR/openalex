@@ -1,4 +1,5 @@
 import 'package:example/features/home/home_view.dart';
+import 'package:example/features/institutions/institution_details.dart';
 import 'package:flutter/material.dart';
 import 'package:openalex/models/models.dart';
 import 'package:openalex/openalex.dart';
@@ -25,22 +26,36 @@ class _InstitutionSearchState extends State<InstitutionSearch> {
               prefixIcon: Icon(Icons.search),
             ),
             onSubmitted: (value) {
-              OpenAlex().getInstitutions().then((value) {
+              OpenAlex().getInstitutions(query: value).then((value) {
                 setState(() {
                   institutions = value?.institutions ?? [];
                 });
               });
             },
           ).sliver(padding: 16),
-          SliverList.builder(
-            itemCount: institutions.length,
-            itemBuilder: (context, index) {
-              Institution institution = institutions[index];
-              return ListTile(
-                title: Text(institution.displayName ?? ''),
-                subtitle: Text(institution.homepageUrl ?? ''),
-              );
-            },
+          SliverPadding(
+            padding: const EdgeInsets.all(8.0),
+            sliver: SliverList.builder(
+              itemCount: institutions.length,
+              itemBuilder: (context, index) {
+                Institution institution = institutions[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black, width: 2)
+                    ),
+                      title: Text(institution.displayName ?? ''),
+                      subtitle: Text(institution.homepageUrl ?? ''),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => InstitutionDetails(
+                                  institution: institution,
+                                )));
+                      }),
+                );
+              },
+            ),
           )
         ],
       ),

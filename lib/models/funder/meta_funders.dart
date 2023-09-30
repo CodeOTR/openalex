@@ -8,6 +8,7 @@ part 'meta_funders.g.dart';
 class MetaFunders {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Funder>? funders;
 
   MetaFunders({

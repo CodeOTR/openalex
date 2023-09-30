@@ -10,7 +10,7 @@ MetaAuthors _$MetaAuthorsFromJson(Map<String, dynamic> json) => MetaAuthors(
       meta: json['meta'] == null
           ? null
           : Meta.fromJson(json['meta'] as Map<String, dynamic>),
-      authors: (json['authors'] as List<dynamic>?)
+      authors: (json['results'] as List<dynamic>?)
           ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -18,5 +18,5 @@ MetaAuthors _$MetaAuthorsFromJson(Map<String, dynamic> json) => MetaAuthors(
 Map<String, dynamic> _$MetaAuthorsToJson(MetaAuthors instance) =>
     <String, dynamic>{
       'meta': instance.meta?.toJson(),
-      'authors': instance.authors?.map((e) => e.toJson()).toList(),
+      'results': instance.authors?.map((e) => e.toJson()).toList(),
     };

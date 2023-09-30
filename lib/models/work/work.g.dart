@@ -7,10 +7,11 @@ part of 'work.dart';
 // **************************************************************************
 
 Work _$WorkFromJson(Map<String, dynamic> json) => Work(
-      abstractInvertedIndex: json['abstract_inverted_index'] == null
-          ? null
-          : AbstractInvertedIndex.fromJson(
-              json['abstract_inverted_index'] as Map<String, dynamic>),
+      abstractInvertedIndex:
+          (json['abstract_inverted_index'] as Map<String, dynamic>?)?.map(
+        (k, e) =>
+            MapEntry(k, (e as List<dynamic>).map((e) => e as int).toList()),
+      ),
       authorships: (json['authorships'] as List<dynamic>?)
           ?.map((e) => Authorship.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -20,7 +21,9 @@ Work _$WorkFromJson(Map<String, dynamic> json) => Work(
       apcPaid: json['apc_paid'] == null
           ? null
           : ApcPaid.fromJson(json['apc_paid'] as Map<String, dynamic>),
-      bestOALocation: json['best_oa_location'],
+      bestOALocation: json['best_oa_location'] == null
+          ? null
+          : Location.fromJson(json['best_oa_location'] as Map<String, dynamic>),
       biblio: json['biblio'] == null
           ? null
           : Biblio.fromJson(json['biblio'] as Map<String, dynamic>),
@@ -100,11 +103,11 @@ Work _$WorkFromJson(Map<String, dynamic> json) => Work(
     );
 
 Map<String, dynamic> _$WorkToJson(Work instance) => <String, dynamic>{
-      'abstract_inverted_index': instance.abstractInvertedIndex?.toJson(),
+      'abstract_inverted_index': instance.abstractInvertedIndex,
       'authorships': instance.authorships?.map((e) => e.toJson()).toList(),
       'apc_list': instance.apcList?.toJson(),
       'apc_paid': instance.apcPaid?.toJson(),
-      'best_oa_location': instance.bestOALocation,
+      'best_oa_location': instance.bestOALocation?.toJson(),
       'biblio': instance.biblio?.toJson(),
       'cited_by_api_url': instance.citedByApiUrl,
       'cited_by_count': instance.citedByCount,

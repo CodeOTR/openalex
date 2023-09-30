@@ -7,6 +7,7 @@ part 'meta_publishers.g.dart';
 class MetaPublishers {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Publisher>? publishers;
 
   MetaPublishers({

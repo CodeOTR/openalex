@@ -11,7 +11,7 @@ MeSH _$MeSHFromJson(Map<String, dynamic> json) => MeSH(
       descriptorName: json['descriptor_name'] as String?,
       qualifierName: json['qualifier_name'] as String?,
       qualifierUi: json['qualifier_id'] as String?,
-      isMajorTopic: json['is_major_topic'] as String?,
+      isMajorTopic: json['is_major_topic'] as bool?,
     );
 
 Map<String, dynamic> _$MeSHToJson(MeSH instance) => <String, dynamic>{

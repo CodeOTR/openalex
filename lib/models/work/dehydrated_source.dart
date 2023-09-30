@@ -11,7 +11,7 @@ class DehydratedSource {
   String? hostOrganization;
 
   @JsonKey(name: 'host_organization_lineage')
-  String? hostOrganizationLineage;
+  List<String>? hostOrganizationLineage;
 
   @JsonKey(name: 'host_organization_name')
   String? hostOrganizationName;
@@ -26,7 +26,7 @@ class DehydratedSource {
   bool? isOa;
 
   @JsonKey(name: 'issn')
-  String? issn;
+  List<String>? issn;
 
   @JsonKey(name: 'issn_l')
   String? issnL;

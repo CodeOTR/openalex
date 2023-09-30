@@ -1,24 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openalex/models/models.dart';
-import 'package:openalex/models/work/meta.dart';
 
 part 'meta_authors.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+class MetaAuthors {
+  Meta? meta;
 
-class MetaAuthors{
+  @JsonKey(name: 'results')
+  List<Author>? authors;
 
-Meta? meta;
+  MetaAuthors({
+    this.meta,
+    this.authors,
+  });
 
-List<Author>? authors;
+  factory MetaAuthors.fromJson(Map<String, dynamic> json) => _$MetaAuthorsFromJson(json);
 
-MetaAuthors({
-this.meta,
-this.authors,
-});
-
-
-factory MetaAuthors.fromJson(Map<String, dynamic> json) => _$MetaAuthorsFromJson(json);
-
- Map<String, dynamic> toJson() => _$MetaAuthorsToJson(this);
- }
+  Map<String, dynamic> toJson() => _$MetaAuthorsToJson(this);
+}

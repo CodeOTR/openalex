@@ -8,6 +8,7 @@ part 'meta_works.g.dart';
 class MetaWorks {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Work>? works;
 
   MetaWorks({

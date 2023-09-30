@@ -10,7 +10,7 @@ MetaConcepts _$MetaConceptsFromJson(Map<String, dynamic> json) => MetaConcepts(
       meta: json['meta'] == null
           ? null
           : Meta.fromJson(json['meta'] as Map<String, dynamic>),
-      concepts: (json['concepts'] as List<dynamic>?)
+      concepts: (json['results'] as List<dynamic>?)
           ?.map((e) => Concept.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -18,5 +18,5 @@ MetaConcepts _$MetaConceptsFromJson(Map<String, dynamic> json) => MetaConcepts(
 Map<String, dynamic> _$MetaConceptsToJson(MetaConcepts instance) =>
     <String, dynamic>{
       'meta': instance.meta?.toJson(),
-      'concepts': instance.concepts?.map((e) => e.toJson()).toList(),
+      'results': instance.concepts?.map((e) => e.toJson()).toList(),
     };

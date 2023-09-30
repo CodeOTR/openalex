@@ -8,7 +8,7 @@ part of 'alex_ids.dart';
 
 AlexIds _$AlexIdsFromJson(Map<String, dynamic> json) => AlexIds(
       doi: json['doi'] as String?,
-      mag: json['mag'] as int?,
+      mag: json['mag'] as String?,
       openalex: json['openalex'] as String?,
       pmid: json['pmid'] as String?,
       pmcid: json['pmcid'] as String?,

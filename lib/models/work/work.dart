@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:openalex/models/concept/concept.dart';
 import 'package:openalex/models/institution/counts_by_year.dart';
-import 'package:openalex/models/work/abstract_inverted_index.dart';
 import 'package:openalex/models/work/alex_ids.dart';
 import 'package:openalex/models/work/apc_list.dart';
 import 'package:openalex/models/work/apc_paid.dart';
@@ -24,7 +23,7 @@ class Work {
   ///
   /// Newer works are more likely to have an abstract inverted index. For example, over 60% of works in 2022 have abstract data, compared to 45% for works older than 2000.
   @JsonKey(name: 'abstract_inverted_index')
-  AbstractInvertedIndex? abstractInvertedIndex;
+  Map<String, List<int>>? abstractInvertedIndex;
 
   /// List of Authorship objects, each representing an author and their institution. Limited to the first 100 authors to maintain API performance.
   List<Authorship>? authorships;
@@ -63,7 +62,7 @@ class Work {
   /// 4. pdf_url: A location with a direct PDF link is better than one without.
   /// 5. repository rankings: Some major repositories like PubMed Central and arXiv are ranked above others.
   @JsonKey(name: 'best_oa_location')
-  dynamic bestOALocation;
+  Location? bestOALocation;
 
   /// Old-timey bibliographic info for this work. This is mostly useful only in citation/reference contexts. These are all strings because sometimes you'll get fun values like "Spring" and "Inside cover."
   Biblio? biblio;
@@ -253,6 +252,10 @@ class Work {
   /// You can read about their data extraction process on the Internet Archive website. If you compare term_frequency against articles we would like to hear how it went!
   @JsonKey(name: 'term_frequency')
   double? termFrequency;
+
+  String get abstract {
+    return abstractInvertedIndex!.entries.map((e) => e.key).toList().join(' ');
+  }
 
   Work({
     this.abstractInvertedIndex,

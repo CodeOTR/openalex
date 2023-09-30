@@ -21,7 +21,6 @@ export './source/apc_price.dart';
 export './source/meta_sources.dart';
 export './source/society.dart';
 export './source/source.dart';
-export './work/abstract_inverted_index.dart';
 export './work/alex_ids.dart';
 export './work/apc_list.dart';
 export './work/apc_paid.dart';

@@ -22,7 +22,7 @@ class MeSH {
 
   /// If this MeSH term is a major topic for the work, this field will be true; otherwise it will be false.
   @JsonKey(name: 'is_major_topic')
-  String? isMajorTopic;
+  bool? isMajorTopic;
 
   MeSH({
     this.descriptorUi,

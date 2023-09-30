@@ -1,6 +1,7 @@
 library openalex;
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +9,6 @@ import 'package:openalex/models/author/meta_authors.dart';
 import 'package:openalex/models/models.dart';
 
 class OpenAlex {
-
   static final OpenAlex _openAlex = OpenAlex._internal();
 
   factory OpenAlex() => _openAlex;
@@ -58,13 +58,16 @@ class OpenAlex {
     int? page,
     int? perPage,
     List<String>? select,
-    WorkFilter? queryFilter,
+    Map<WorkFilter, String>? queryFilter,
   }) async {
+    debugPrint('Getting works');
     String queryString = '';
     if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
       queryString += '?';
-      if (queryFilter != null && query != null) {
-        queryString += 'filter=${queryFilter.name}.search:$query&';
+      if (queryFilter != null) {
+        queryFilter.forEach((key, value) {
+          queryString += 'filter=${key.name}:$value&';
+        });
       } else if (query != null) {
         queryString += 'search=$query&';
       }
@@ -73,12 +76,49 @@ class OpenAlex {
       if (page != null) queryString += 'page=$page&';
       if (perPage != null) queryString += 'per-page=$perPage&';
       if (select != null) queryString += 'select=${select.join(',')}&';
+
+      debugPrint('URL: $_url/works$queryString'.toString());
     }
     http.Response response = await http.get(Uri.parse('$_url/works$queryString'));
-
     if (response.statusCode == 200) {
-      MetaWorks works = jsonDecode(response.body);
-      return works;
+      try {
+        return MetaWorks.fromJson(jsonDecode(response.body));
+      } catch (e) {
+        debugPrint('Error: $e');
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  Future<MetaWorks?> getWorksById({
+   required List<String> ids,
+    int? perPage = 5,
+  }) async {
+    debugPrint('Getting works');
+    String queryString = '?filter=ids.openalex:';
+
+    ids.forEach((element) {
+      queryString += '$element|';
+    });
+
+    // remove trailing |
+    queryString = queryString.substring(0, queryString.length - 1);
+
+    // add per page
+    queryString += '&per-page=$perPage';
+
+    http.Response response = await http.get(Uri.parse('$_url/works$queryString'));
+
+    debugPrint('response: ' + response.body.toString());
+    if (response.statusCode == 200) {
+      try {
+        return MetaWorks.fromJson(jsonDecode(response.body));
+      } catch (e) {
+        debugPrint('Error: $e');
+        return null;
+      }
     } else {
       return null;
     }
@@ -111,8 +151,7 @@ class OpenAlex {
     }
   }
 
-  Future<List<Work>> searchWorks(
-    String query, {
+  Future<List<Work>> searchWorks(String query, {
     WorkFilter? filter,
   }) async {
     http.Response response = await http.get(Uri.parse('$_url/works/${filter != null ? 'filter=${filter.name}.' : ''}search?q=$query'));
@@ -157,13 +196,39 @@ class OpenAlex {
     }
   }
 
-  Future<MetaAuthors> getAuthors() async {
-    http.Response response = await http.get(Uri.parse('$_url/authors'));
+  Future<MetaAuthors?> getAuthors({
+    String? query,
+    int? page,
+    int? perPage,
+    List<String>? select,
+    Map<AuthorFilter, String>? queryFilter,
+  }) async {
+    String queryString = '';
+    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+      queryString += '?';
+      if (queryFilter != null) {
+        queryFilter.forEach((key, value) {
+          queryString += 'filter=${key.name}:$value&';
+        });
+      } else if (query != null) {
+        queryString += 'search=$query&';
+      }
 
+      if (query != null) queryString += 'q=$query&';
+      if (page != null) queryString += 'page=$page&';
+      if (perPage != null) queryString += 'per-page=$perPage&';
+      if (select != null) queryString += 'select=${select.join(',')}&';
+    }
+    http.Response response = await http.get(Uri.parse('$_url/authors$queryString'));
     if (response.statusCode == 200) {
-      return MetaAuthors.fromJson(jsonDecode(response.body));
+      try {
+        return MetaAuthors.fromJson(jsonDecode(response.body));
+      } catch (e) {
+        debugPrint('Error: $e');
+        return null;
+      }
     } else {
-      return MetaAuthors();
+      return null;
     }
   }
 
@@ -185,6 +250,7 @@ class OpenAlex {
   }
 
   Future<MetaConcepts> getConcepts({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, ConceptFilter? queryFilter}) async {
+    debugPrint('Getting concepts');
     String queryString = '';
     if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
       queryString += '?';
@@ -242,10 +308,10 @@ class OpenAlex {
     }
     http.Response response = await http.get(Uri.parse('$_url/institutions$queryString'));
 
-    debugPrint('Response: ${response.body}');
+    log('Response: ${response.body}');
 
     if (response.statusCode == 200) {
-      try{
+      try {
         return MetaInstitutions.fromJson(jsonDecode(response.body));
       } catch (e) {
         debugPrint('Error: $e');
@@ -282,9 +348,20 @@ enum WorkFilter {
   displayName('display_name'),
   fulltext('fulltext'),
   title('title'),
+  concepts('concepts.id'),
   defaultFilter('default');
 
   const WorkFilter(this.name);
+
+  final String name;
+}
+
+enum AuthorFilter {
+  worksCount('works_count'),
+  concepts('concepts.id'),
+  defaultFilter('default');
+
+  const AuthorFilter(this.name);
 
   final String name;
 }

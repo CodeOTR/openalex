@@ -8,6 +8,7 @@ part 'meta_concepts.g.dart';
 class MetaConcepts {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Concept>? concepts;
 
   MetaConcepts({

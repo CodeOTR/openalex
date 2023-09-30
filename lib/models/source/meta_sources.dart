@@ -7,6 +7,7 @@ part 'meta_sources.g.dart';
 class MetaSources {
   Meta? meta;
 
+  @JsonKey(name: 'results')
   List<Source>? sources;
 
   MetaSources({

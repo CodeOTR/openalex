@@ -8,7 +8,7 @@ class AlexIds {
   String? doi;
 
   /// the Microsoft Academic Graph ID
-  int? mag;
+  String? mag;
 
   /// The OpenAlex ID. Same as Work.id
   String? openalex;
