@@ -19,7 +19,8 @@ class SummaryStats {
     this.i10Index,
   });
 
-  factory SummaryStats.fromJson(Map<String, dynamic> json) => _$SummaryStatsFromJson(json);
+  factory SummaryStats.fromJson(Map<String, dynamic> json) =>
+      _$SummaryStatsFromJson(json);
 
   Map<String, dynamic> toJson() => _$SummaryStatsToJson(this);
 }

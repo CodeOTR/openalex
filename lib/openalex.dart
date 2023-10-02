@@ -25,7 +25,8 @@ class OpenAlex {
   final String _url = 'https://api.openalex.org';
 
   /// https://docs.openalex.org/api-entities/works/get-a-single-work
-  Future<Work?> getWork(String id, {List<String>? select, EntitySort? sort, bool ascending = true}) async {
+  Future<Work?> getWork(String id,
+      {List<String>? select, EntitySort? sort, bool ascending = true}) async {
     String queryString = '';
 
     if (select != null || sort != null) {
@@ -38,7 +39,8 @@ class OpenAlex {
       }
     }
 
-    http.Response response = await http.get(Uri.parse('$_url/works/$id$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/works/$id$queryString'));
 
     if (response.statusCode == 200) {
       return Work.fromJson(jsonDecode(response.body));
@@ -62,7 +64,11 @@ class OpenAlex {
   }) async {
     debugPrint('Getting works');
     String queryString = '';
-    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+    if (page != null ||
+        perPage != null ||
+        select != null ||
+        queryFilter != null ||
+        query != null) {
       queryString += '?';
       if (queryFilter != null) {
         queryFilter.forEach((key, value) {
@@ -79,7 +85,8 @@ class OpenAlex {
 
       debugPrint('URL: $_url/works$queryString'.toString());
     }
-    http.Response response = await http.get(Uri.parse('$_url/works$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/works$queryString'));
     if (response.statusCode == 200) {
       try {
         return MetaWorks.fromJson(jsonDecode(response.body));
@@ -93,15 +100,15 @@ class OpenAlex {
   }
 
   Future<MetaWorks?> getWorksById({
-   required List<String> ids,
+    required List<String> ids,
     int? perPage = 5,
   }) async {
     debugPrint('Getting works');
     String queryString = '?filter=ids.openalex:';
 
-    ids.forEach((element) {
+    for (var element in ids) {
       queryString += '$element|';
-    });
+    }
 
     // remove trailing |
     queryString = queryString.substring(0, queryString.length - 1);
@@ -109,9 +116,10 @@ class OpenAlex {
     // add per page
     queryString += '&per-page=$perPage';
 
-    http.Response response = await http.get(Uri.parse('$_url/works$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/works$queryString'));
 
-    debugPrint('response: ' + response.body.toString());
+    debugPrint('response: ${response.body}');
     if (response.statusCode == 200) {
       try {
         return MetaWorks.fromJson(jsonDecode(response.body));
@@ -129,7 +137,8 @@ class OpenAlex {
   /// Note that while n-grams are derived from the fulltext of a Work, the presence of n-grams for a given Work doesn't imply that the fulltext is available to you, the reader.
   /// It only means the fulltext was available to Internet Archive for indexing. Work.open_access is the place to go for information on public fulltext availability.
   Future<List<NGram>> getWorkNGrams(String id) async {
-    http.Response response = await http.get(Uri.parse('$_url/works/$id/ngrams'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/works/$id/ngrams'));
 
     if (response.statusCode == 200) {
       List<dynamic> ngrams = jsonDecode(response.body);
@@ -141,7 +150,8 @@ class OpenAlex {
 
   /// You can use sample to get a random batch of works.
   Future<List<Work>> getRandomWorks({int? count = 20}) async {
-    http.Response response = await http.get(Uri.parse('$_url/works?sample=$count'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/works?sample=$count'));
 
     if (response.statusCode == 200) {
       List<dynamic> works = jsonDecode(response.body);
@@ -151,10 +161,12 @@ class OpenAlex {
     }
   }
 
-  Future<List<Work>> searchWorks(String query, {
+  Future<List<Work>> searchWorks(
+    String query, {
     WorkFilter? filter,
   }) async {
-    http.Response response = await http.get(Uri.parse('$_url/works/${filter != null ? 'filter=${filter.name}.' : ''}search?q=$query'));
+    http.Response response = await http.get(Uri.parse(
+        '$_url/works/${filter != null ? 'filter=${filter.name}.' : ''}search?q=$query'));
 
     if (response.statusCode == 200) {
       List<dynamic> works = jsonDecode(response.body);
@@ -169,7 +181,8 @@ class OpenAlex {
   ///  https://api.openalex.org/autocomplete/works?q=tigers
   /// This returns a list of works titles with the author of each work set as the hint:
   Future<List<AutocompleteWork>> autocompleteWorks(String query) async {
-    http.Response response = await http.get(Uri.parse('$_url/autocomplete/works?q=$query'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/autocomplete/works?q=$query'));
 
     if (response.statusCode == 200) {
       List<dynamic> works = jsonDecode(response.body);
@@ -187,7 +200,8 @@ class OpenAlex {
       queryString += 'select=${select.join(',')}';
     }
 
-    http.Response response = await http.get(Uri.parse('$_url/authors/$id$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/authors/$id$queryString'));
 
     if (response.statusCode == 200) {
       return Author.fromJson(jsonDecode(response.body));
@@ -204,7 +218,11 @@ class OpenAlex {
     Map<AuthorFilter, String>? queryFilter,
   }) async {
     String queryString = '';
-    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+    if (page != null ||
+        perPage != null ||
+        select != null ||
+        queryFilter != null ||
+        query != null) {
       queryString += '?';
       if (queryFilter != null) {
         queryFilter.forEach((key, value) {
@@ -219,7 +237,8 @@ class OpenAlex {
       if (perPage != null) queryString += 'per-page=$perPage&';
       if (select != null) queryString += 'select=${select.join(',')}&';
     }
-    http.Response response = await http.get(Uri.parse('$_url/authors$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/authors$queryString'));
     if (response.statusCode == 200) {
       try {
         return MetaAuthors.fromJson(jsonDecode(response.body));
@@ -240,7 +259,8 @@ class OpenAlex {
       queryString += 'select=${select.join(',')}';
     }
 
-    http.Response response = await http.get(Uri.parse('$_url/concepts/$id$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/concepts/$id$queryString'));
 
     if (response.statusCode == 200) {
       return Concept.fromJson(jsonDecode(response.body));
@@ -249,10 +269,20 @@ class OpenAlex {
     }
   }
 
-  Future<MetaConcepts> getConcepts({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, ConceptFilter? queryFilter}) async {
+  Future<MetaConcepts> getConcepts(
+      {String? query,
+      List<String>? select,
+      int? page,
+      int? perPage,
+      EntitySort? sort,
+      ConceptFilter? queryFilter}) async {
     debugPrint('Getting concepts');
     String queryString = '';
-    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+    if (page != null ||
+        perPage != null ||
+        select != null ||
+        queryFilter != null ||
+        query != null) {
       queryString += '?';
       if (queryFilter != null && query != null) {
         queryString += 'filter=${queryFilter.name}.search:$query&';
@@ -265,7 +295,8 @@ class OpenAlex {
       if (perPage != null) queryString += 'per-page=$perPage&';
       if (select != null) queryString += 'select=${select.join(',')}&';
     }
-    http.Response response = await http.get(Uri.parse('$_url/concepts$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/concepts$queryString'));
 
     if (response.statusCode == 200) {
       return MetaConcepts.fromJson(jsonDecode(response.body));
@@ -281,7 +312,8 @@ class OpenAlex {
       queryString += '?';
       queryString += 'select=${select.join(',')}';
     }
-    http.Response response = await http.get(Uri.parse('$_url/institutions/$id$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/institutions/$id$queryString'));
 
     if (response.statusCode == 200) {
       return Institution.fromJson(jsonDecode(response.body));
@@ -291,9 +323,19 @@ class OpenAlex {
   }
 
   /// get lists of institutions
-  Future<MetaInstitutions?> getInstitutions({String? query, List<String>? select, int? page, int? perPage, EntitySort? sort, InstitutionFilter? queryFilter}) async {
+  Future<MetaInstitutions?> getInstitutions(
+      {String? query,
+      List<String>? select,
+      int? page,
+      int? perPage,
+      EntitySort? sort,
+      InstitutionFilter? queryFilter}) async {
     String queryString = '';
-    if (page != null || perPage != null || select != null || queryFilter != null || query != null) {
+    if (page != null ||
+        perPage != null ||
+        select != null ||
+        queryFilter != null ||
+        query != null) {
       queryString += '?';
       if (queryFilter != null && query != null) {
         queryString += 'filter=${queryFilter.name}.search:$query&';
@@ -306,7 +348,8 @@ class OpenAlex {
       if (perPage != null) queryString += 'per-page=$perPage&';
       if (select != null) queryString += 'select=${select.join(',')}&';
     }
-    http.Response response = await http.get(Uri.parse('$_url/institutions$queryString'));
+    http.Response response =
+        await http.get(Uri.parse('$_url/institutions$queryString'));
 
     log('Response: ${response.body}');
 

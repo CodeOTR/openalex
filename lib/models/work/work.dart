@@ -17,7 +17,6 @@ part 'work.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Work {
-
   /// The abstract of the work, as an inverted index, which encodes information about the abstract's words and
   /// their positions within the text. Like Microsoft Academic Graph, OpenAlex doesn't include plaintext abstracts due to legal constraints.
   ///

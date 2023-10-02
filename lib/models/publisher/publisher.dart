@@ -83,7 +83,8 @@ class Publisher {
     this.worksCount,
   });
 
-  factory Publisher.fromJson(Map<String, dynamic> json) => _$PublisherFromJson(json);
+  factory Publisher.fromJson(Map<String, dynamic> json) =>
+      _$PublisherFromJson(json);
 
   Map<String, dynamic> toJson() => _$PublisherToJson(this);
 }

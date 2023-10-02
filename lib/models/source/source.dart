@@ -10,7 +10,6 @@ part 'source.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Source {
-
   @JsonKey(name: 'abbreviated_title')
   String? abbreviatedTitle;
 

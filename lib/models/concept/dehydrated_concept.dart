@@ -20,7 +20,8 @@ class DehydratedConcept {
     this.wikidata,
   });
 
-  factory DehydratedConcept.fromJson(Map<String, dynamic> json) => _$DehydratedConceptFromJson(json);
+  factory DehydratedConcept.fromJson(Map<String, dynamic> json) =>
+      _$DehydratedConceptFromJson(json);
 
   Map<String, dynamic> toJson() => _$DehydratedConceptToJson(this);
 }

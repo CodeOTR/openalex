@@ -23,7 +23,8 @@ class ApcList {
     this.valueUsd,
   });
 
-  factory ApcList.fromJson(Map<String, dynamic> json) => _$ApcListFromJson(json);
+  factory ApcList.fromJson(Map<String, dynamic> json) =>
+      _$ApcListFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApcListToJson(this);
 }

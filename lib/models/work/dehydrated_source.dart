@@ -47,7 +47,8 @@ class DehydratedSource {
     this.type,
   });
 
-  factory DehydratedSource.fromJson(Map<String, dynamic> json) => _$DehydratedSourceFromJson(json);
+  factory DehydratedSource.fromJson(Map<String, dynamic> json) =>
+      _$DehydratedSourceFromJson(json);
 
   Map<String, dynamic> toJson() => _$DehydratedSourceToJson(this);
 }

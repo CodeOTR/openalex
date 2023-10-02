@@ -31,7 +31,8 @@ class OpenAccess {
     this.oaUrl,
   });
 
-  factory OpenAccess.fromJson(Map<String, dynamic> json) => _$OpenAccessFromJson(json);
+  factory OpenAccess.fromJson(Map<String, dynamic> json) =>
+      _$OpenAccessFromJson(json);
 
   Map<String, dynamic> toJson() => _$OpenAccessToJson(this);
 }

@@ -11,7 +11,8 @@ class International {
     required this.displayName,
   });
 
-  factory International.fromJson(Map<String, dynamic> json) => _$InternationalFromJson(json);
+  factory International.fromJson(Map<String, dynamic> json) =>
+      _$InternationalFromJson(json);
 
   Map<String, dynamic> toJson() => _$InternationalToJson(this);
 }

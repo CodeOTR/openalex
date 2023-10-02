@@ -16,7 +16,8 @@ class MetaConcepts {
     this.concepts,
   });
 
-  factory MetaConcepts.fromJson(Map<String, dynamic> json) => _$MetaConceptsFromJson(json);
+  factory MetaConcepts.fromJson(Map<String, dynamic> json) =>
+      _$MetaConceptsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaConceptsToJson(this);
 }

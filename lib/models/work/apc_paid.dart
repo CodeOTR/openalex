@@ -23,7 +23,8 @@ class ApcPaid {
     this.valueUsd,
   });
 
-  factory ApcPaid.fromJson(Map<String, dynamic> json) => _$ApcPaidFromJson(json);
+  factory ApcPaid.fromJson(Map<String, dynamic> json) =>
+      _$ApcPaidFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApcPaidToJson(this);
 }

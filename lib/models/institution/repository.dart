@@ -4,7 +4,6 @@ part 'repository.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Repository {
-
   /// The repository's unique identifier.
   String? id;
 
@@ -32,7 +31,8 @@ class Repository {
     this.hostOrganizationLineage,
   });
 
-  factory Repository.fromJson(Map<String, dynamic> json) => _$RepositoryFromJson(json);
+  factory Repository.fromJson(Map<String, dynamic> json) =>
+      _$RepositoryFromJson(json);
 
   Map<String, dynamic> toJson() => _$RepositoryToJson(this);
 }

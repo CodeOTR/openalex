@@ -18,8 +18,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-     colorSchemeSeed: Colors.black),
+      theme: ThemeData(colorSchemeSeed: Colors.black),
       /*
       Works: Scholarly documents like journal articles, books, datasets, and theses
 Authors: People who create works

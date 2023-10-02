@@ -18,7 +18,8 @@ class CountByYear {
     this.citedByCount,
   });
 
-  factory CountByYear.fromJson(Map<String, dynamic> json) => _$CountByYearFromJson(json);
+  factory CountByYear.fromJson(Map<String, dynamic> json) =>
+      _$CountByYearFromJson(json);
 
   Map<String, dynamic> toJson() => _$CountByYearToJson(this);
 }

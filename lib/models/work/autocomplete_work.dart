@@ -35,7 +35,8 @@ class AutocompleteWork {
     this.externalId,
   });
 
-  factory AutocompleteWork.fromJson(Map<String, dynamic> json) => _$AutocompleteWorkFromJson(json);
+  factory AutocompleteWork.fromJson(Map<String, dynamic> json) =>
+      _$AutocompleteWorkFromJson(json);
 
   Map<String, dynamic> toJson() => _$AutocompleteWorkToJson(this);
 }

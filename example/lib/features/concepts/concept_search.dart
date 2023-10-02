@@ -42,7 +42,8 @@ class _ConceptSearchState extends State<ConceptSearch> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                      shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 2)),
+                      shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.black, width: 2)),
                       title: Text(concept.displayName ?? ''),
                       subtitle: Text(concept.description ?? ''),
                       onTap: () {

@@ -27,7 +27,8 @@ class AlexIds {
     this.pmcid,
   });
 
-  factory AlexIds.fromJson(Map<String, dynamic> json) => _$AlexIdsFromJson(json);
+  factory AlexIds.fromJson(Map<String, dynamic> json) =>
+      _$AlexIdsFromJson(json);
 
   Map<String, dynamic> toJson() => _$AlexIdsToJson(this);
 }

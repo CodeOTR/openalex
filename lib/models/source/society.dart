@@ -15,7 +15,8 @@ class Society {
     this.organization,
   });
 
-  factory Society.fromJson(Map<String, dynamic> json) => _$SocietyFromJson(json);
+  factory Society.fromJson(Map<String, dynamic> json) =>
+      _$SocietyFromJson(json);
 
   Map<String, dynamic> toJson() => _$SocietyToJson(this);
 }

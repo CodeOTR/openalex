@@ -23,7 +23,8 @@ class XConcept {
     this.score,
   });
 
-  factory XConcept.fromJson(Map<String, dynamic> json) => _$XConceptFromJson(json);
+  factory XConcept.fromJson(Map<String, dynamic> json) =>
+      _$XConceptFromJson(json);
 
   Map<String, dynamic> toJson() => _$XConceptToJson(this);
 }

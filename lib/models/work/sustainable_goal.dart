@@ -18,7 +18,8 @@ class SustainableGoal {
     this.score,
   });
 
-  factory SustainableGoal.fromJson(Map<String, dynamic> json) => _$SustainableGoalFromJson(json);
+  factory SustainableGoal.fromJson(Map<String, dynamic> json) =>
+      _$SustainableGoalFromJson(json);
 
   Map<String, dynamic> toJson() => _$SustainableGoalToJson(this);
 }

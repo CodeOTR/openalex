@@ -16,7 +16,8 @@ class MetaWorks {
     this.works,
   });
 
-  factory MetaWorks.fromJson(Map<String, dynamic> json) => _$MetaWorksFromJson(json);
+  factory MetaWorks.fromJson(Map<String, dynamic> json) =>
+      _$MetaWorksFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaWorksToJson(this);
 }

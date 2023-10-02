@@ -15,7 +15,8 @@ class ApcPrice {
     this.currency,
   });
 
-  factory ApcPrice.fromJson(Map<String, dynamic> json) => _$ApcPriceFromJson(json);
+  factory ApcPrice.fromJson(Map<String, dynamic> json) =>
+      _$ApcPriceFromJson(json);
 
   Map<String, dynamic> toJson() => _$ApcPriceToJson(this);
 }

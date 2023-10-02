@@ -15,7 +15,8 @@ class MetaPublishers {
     this.publishers,
   });
 
-  factory MetaPublishers.fromJson(Map<String, dynamic> json) => _$MetaPublishersFromJson(json);
+  factory MetaPublishers.fromJson(Map<String, dynamic> json) =>
+      _$MetaPublishersFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaPublishersToJson(this);
 }

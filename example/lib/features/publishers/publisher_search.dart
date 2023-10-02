@@ -6,9 +6,9 @@ class PublisherSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Publisher Search')),
-      body: const Center(
-        child: Text('Publisher Search'),
-      ));
+        appBar: AppBar(title: const Text('Publisher Search')),
+        body: const Center(
+          child: Text('Publisher Search'),
+        ));
   }
 }

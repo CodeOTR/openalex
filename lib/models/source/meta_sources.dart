@@ -15,7 +15,8 @@ class MetaSources {
     this.sources,
   });
 
-  factory MetaSources.fromJson(Map<String, dynamic> json) => _$MetaSourcesFromJson(json);
+  factory MetaSources.fromJson(Map<String, dynamic> json) =>
+      _$MetaSourcesFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaSourcesToJson(this);
 }

@@ -15,7 +15,8 @@ class MetaAuthors {
     this.authors,
   });
 
-  factory MetaAuthors.fromJson(Map<String, dynamic> json) => _$MetaAuthorsFromJson(json);
+  factory MetaAuthors.fromJson(Map<String, dynamic> json) =>
+      _$MetaAuthorsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaAuthorsToJson(this);
 }

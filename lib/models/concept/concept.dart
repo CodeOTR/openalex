@@ -84,7 +84,8 @@ class Concept {
     this.worksCount,
   });
 
-  factory Concept.fromJson(Map<String, dynamic> json) => _$ConceptFromJson(json);
+  factory Concept.fromJson(Map<String, dynamic> json) =>
+      _$ConceptFromJson(json);
 
   Map<String, dynamic> toJson() => _$ConceptToJson(this);
 }

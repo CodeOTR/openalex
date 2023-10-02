@@ -16,7 +16,8 @@ class MetaFunders {
     this.funders,
   });
 
-  factory MetaFunders.fromJson(Map<String, dynamic> json) => _$MetaFundersFromJson(json);
+  factory MetaFunders.fromJson(Map<String, dynamic> json) =>
+      _$MetaFundersFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaFundersToJson(this);
 }

@@ -21,7 +21,8 @@ class Authorship {
     this.institutions,
   });
 
-  factory Authorship.fromJson(Map<String, dynamic> json) => _$AuthorshipFromJson(json);
+  factory Authorship.fromJson(Map<String, dynamic> json) =>
+      _$AuthorshipFromJson(json);
 
   Map<String, dynamic> toJson() => _$AuthorshipToJson(this);
 }

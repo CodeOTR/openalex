@@ -13,7 +13,6 @@ part 'institution.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Institution {
-
   /// Institutions related to this one. Each associated institution is represented as a  object, with one extra property:
   @JsonKey(name: 'associated_institutions')
   List<DehydratedInstitution>? associatedInstitutions;
@@ -142,7 +141,8 @@ class Institution {
     this.xConcepts,
   });
 
-  factory Institution.fromJson(Map<String, dynamic> json) => _$InstitutionFromJson(json);
+  factory Institution.fromJson(Map<String, dynamic> json) =>
+      _$InstitutionFromJson(json);
 
   Map<String, dynamic> toJson() => _$InstitutionToJson(this);
 }

@@ -42,9 +42,8 @@ class _InstitutionSearchState extends State<InstitutionSearch> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    shape: const RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.black, width: 2)
-                    ),
+                      shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.black, width: 2)),
                       title: Text(institution.displayName ?? ''),
                       subtitle: Text(institution.homepageUrl ?? ''),
                       onTap: () {

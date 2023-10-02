@@ -16,7 +16,8 @@ class MetaInstitutions {
     this.institutions,
   });
 
-  factory MetaInstitutions.fromJson(Map<String, dynamic> json) => _$MetaInstitutionsFromJson(json);
+  factory MetaInstitutions.fromJson(Map<String, dynamic> json) =>
+      _$MetaInstitutionsFromJson(json);
 
   Map<String, dynamic> toJson() => _$MetaInstitutionsToJson(this);
 }

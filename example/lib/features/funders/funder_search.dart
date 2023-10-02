@@ -6,10 +6,9 @@ class FunderSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Funder Search')),
-      body: const Center(
-        child: Text('Funder Search'),
-      )
-    );
+        appBar: AppBar(title: const Text('Funder Search')),
+        body: const Center(
+          child: Text('Funder Search'),
+        ));
   }
 }
